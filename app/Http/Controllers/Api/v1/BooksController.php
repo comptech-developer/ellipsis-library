@@ -17,11 +17,11 @@ class BooksController extends Controller
     public $successStatus = 200;
     public function LoadBook()
     {
-        return BookResource::collection(Book::paginate(5));
+        return BookResource::collection(Book::orderBy('id','desc')->paginate(100));
     }
     public function LoadBookWithMoreLike()
     {
-        return BookResource::collection(Book::withCount('rating')->orderBy('created_at', 'desc')->paginate(10));
+        return BookResource::collection(Book::withCount('rating')->orderBy('rating_count', 'desc')->paginate(50));
     }
     public function AddBook(BookRequest $request)
     {
@@ -169,7 +169,7 @@ class BooksController extends Controller
                     ['book_id',$book_id],
                     ['user_id',$user_id]
                ])->update([
-                    'mark'=>$mark,
+                    'marked'=>$mark,
                 ]);
             }else{
                 Rating::create([
@@ -215,7 +215,8 @@ class BooksController extends Controller
             ['user_id',$user_id]
        ])->first();
        if(!is_null($rating)){
-            $like = ($rating->like == 0)? 1: 0;
+            $like = ($rating->like == 0) ? 1: 0;
+            return $like;
        }else{
           return 1;
        }
@@ -228,7 +229,8 @@ class BooksController extends Controller
             ['user_id',$user_id]
        ])->first();
        if(!is_null($rating)){
-        $mark = ($rating->mark == 0)? 1: 0;
+        $mark = ($rating->marked == 0)? 1: 0;
+        return $mark;
         }else{
             return 1;
         }

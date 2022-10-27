@@ -17,6 +17,7 @@ use App\Http\Requests\UserRequest;
 use App\Http\Requests\AuthRequest;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -134,20 +135,40 @@ class AuthController extends Controller
             }
         
     }
-    public function ViewUser($user_id)
+    public function ListUser()
     {
         try {
-            $user = User::find($user_id);
+           
+            $user = User::all();
                 $success['message'] = 'Succefully...';
                 $success['status'] = 1;
-                $success['book'] =UserResource::make($user);
+                $success['client'] =UserResource::collection($user);
                 return response()->json($success, $this->successStatus);
 
         } catch (\Throwable $e) {
             $response['message'] = $e->getMessage();
             $response['status'] = 2;
             $response['token'] = '';
-            $response['book'] = null;
+            $response['client'] = null;
+            return response()->json($response, $this->successStatus);
+
+        }
+    }
+    public function ViewUser($user_id)
+    {
+        try {
+            Log::info($user_id);
+            $user = User::find($user_id);
+                $success['message'] = 'Succefully...';
+                $success['status'] = 1;
+                $success['client'] =UserResource::make($user);
+                return response()->json($success, $this->successStatus);
+
+        } catch (\Throwable $e) {
+            $response['message'] = $e->getMessage();
+            $response['status'] = 2;
+            $response['token'] = '';
+            $response['client'] = null;
             return response()->json($response, $this->successStatus);
 
         }

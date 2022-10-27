@@ -30,6 +30,7 @@ Route::group(['prefix' => 'v1'] ,function(){
     Route::post('registration',[AuthController::class, 'UserRegistration'])->name('registration');
     Route::group(['middleware' => ['auth:api']], function()
         {
+    Route::get('users',[AuthController::class,'ListUser'])->name('users');
     Route::post('edituser',[AuthController::class,'EditUser'])->name('edituser');
     Route::get('deleteuser/{user_id}',[AuthController::class,'DeleteUser'])->name('deleteuser');
     Route::get('getuser/{user_id}',[AuthController::class,'ViewUser'])->name('getuser');
@@ -39,6 +40,9 @@ Route::group(['prefix' => 'v1'] ,function(){
     Route::get('getbook/{book_id}',[BooksController::class,'ViewBook'])->name('getbook');
     Route::get('deletebook/{book_id}',[BooksController::class,'DeleteBook'])->name('deletebook');
     Route::get('getpopularbooks',[BooksController::class,'LoadBookWithMoreLike'])->name('getpopularbooks');
+    Route::post('comment',[BooksController::class,'AddComment'])->name('comment');
+    Route::get('like/{book_id}',[BooksController::class,'LikeBook'])->name('like');
+    Route::get('mark/{book_id}',[BooksController::class,'MarkBook'])->name('mark');
         });
     
     });
