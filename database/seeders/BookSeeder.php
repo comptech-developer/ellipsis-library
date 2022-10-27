@@ -2,11 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\Role;
+use App\Models\Book;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
-class RoleSeeder extends Seeder
+use SebastianBergmann\FileIterator\Factory;
+use Database\Factories\BookFactory;
+class BookSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,13 +17,6 @@ class RoleSeeder extends Seeder
     public function run()
     {
         //
-        $roles = [
-            'admin',
-            'user'
-         ];
-      
-         foreach ($roles as $value) {
-              Role::create(['name' => $value]);
-         }
+        Book::factory()->count(5000)->create();
     }
 }

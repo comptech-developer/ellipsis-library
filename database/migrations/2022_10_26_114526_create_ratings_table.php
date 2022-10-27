@@ -13,9 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('ratings', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->unsignedInteger('user_id')->unsigned()->index();
+            $table->unsignedInteger('book_id')->unsigned()->index();
+            $table->unsignedInteger('like')->default(0);
+            $table->unsignedInteger('marked')->default(0);
             $table->timestamps();
         });
     }
@@ -27,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('ratings');
     }
 };
