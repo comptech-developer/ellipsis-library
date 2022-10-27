@@ -32,7 +32,7 @@ Route::group(['prefix' => 'v1'] ,function(){
         {
     Route::post('edituser',[AuthController::class,'EditUser'])->name('edituser');
     Route::get('deleteuser/{user_id}',[AuthController::class,'DeleteUser'])->name('deleteuser');
-    Route::get('user/{user_id}',[AuthController::class,'ViewUser'])->name('getuser');
+    Route::get('getuser/{user_id}',[AuthController::class,'ViewUser'])->name('getuser');
     Route::get('books',[BooksController::class,'LoadBook'])->name('books');
     Route::post('addbook',[BooksController::class,'AddBook'])->name('addbook');
     Route::post('editbook',[BooksController::class,'EditBook'])->name('editbook');
