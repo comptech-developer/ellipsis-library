@@ -173,7 +173,7 @@ class BooksController extends Controller
                 ]);
             }else{
                 Rating::create([
-                    'mark'=>$mark,
+                    'marked'=>$mark,
                     'book_id'=>$book_id,
                     'user_id'=>$user_id
                 ]);
